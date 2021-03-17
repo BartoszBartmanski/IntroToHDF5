@@ -35,9 +35,13 @@ dependencies:
   - bioconductor-uniprot.ws=2.29.0=r40_0
   - bioconductor-viper=1.24.0=r40_0
   - bleach=3.3.0=pyh44b312d_0
+  - boost=1.74.0=py38hc10631b_3
+  - boost-cpp=1.74.0=h9359b55_0
   - bwidget=1.9.14=ha770c72_0
   - bzip2=1.0.8=h7f98852_4
   - ca-certificates=2020.12.5=ha878542_0
+  - cached-property=1.5.2=hd8ed1ab_1
+  - cached_property=1.5.2=pyha770c72_1
   - cairo=1.16.0=h9f066cc_1006
   - certifi=2020.12.5=py38h578d9bd_1
   - cffi=1.14.5=py38ha65f79e_0
@@ -65,7 +69,9 @@ dependencies:
   - gstreamer=1.18.3=h3560a44_0
   - gxx_impl_linux-64=7.5.0=h64c220c_13
   - gxx_linux-64=7.5.0=h555fc39_30
+  - h5py=3.1.0=nompi_py38hafa665b_100
   - harfbuzz=2.7.2=ha5b49bf_1
+  - hdf5=1.10.6=nompi_h7c3c948_1111
   - icu=67.1=he1b5a44_0
   - importlib-metadata=3.7.0=py38h578d9bd_0
   - importlib_metadata=3.7.0=hd8ed1ab_0

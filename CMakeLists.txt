@@ -7,9 +7,7 @@ project(example)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# find HDF5
-find_package(HDF5 COMPONENTS CXX REQUIRED)
-include_directories(${HDF5_INCLUDE_DIRS})
+add_subdirectory(HighFive)
 
-add_executable(write_data write_data.cpp)
-target_link_libraries(write_data ${HDF5_LIBS} ${HDF5_LIBRARIES})
+add_executable(test_highfive test_highfive.cpp)
+target_link_libraries(test_highfive HighFive)
