@@ -2,7 +2,7 @@
 all: conda_env.yml test_h5py.h5 test_rhdf5.hdf5
 
 conda_env.yml:
-	conda env export -n bioquant_exp --file $@
+	conda env export -n test_hdf5 --file $@
 
 build:
 	mkdir $@
@@ -12,7 +12,7 @@ build:
 	cd build && cmake ../ && make test_highfive
 
 test_highfive.h5: ./build/test_highfive
-	$@
+	$<
 
 test_h5py.h5:
 	jupyter-nbconvert --to notebook --inplace --execute main.py.ipynb
