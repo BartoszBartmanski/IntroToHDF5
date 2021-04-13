@@ -15,4 +15,4 @@ test_highfive.h5: ./build/test_highfive
 	$<
 
 clean:
-	rm -rf build/ test_*.h5 conda_env.yml *.html gurobi.log
+	rm -rf build/ *.h5 conda_env.yml *.html gurobi.log
