@@ -9,7 +9,7 @@ build:
 
 # Remember to run this outside of conda env
 ./build/test_highfive: build
-	cd build && cmake ../ && make test_highfive
+	cd build && cmake ../ -DHIGHFIVE_USE_BOOST=OFF && make test_highfive
 
 test_highfive.h5: ./build/test_highfive
 	$<
