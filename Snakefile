@@ -1,39 +1,51 @@
 
 rule all:
     input:
-        "test_h5py.h5", 
-        "test_rhdf5.h5",
-        expand("main.{lang}.html", lang=("py", "r"))
-
-rule create_hdf5_file:
+        "main.py.md"
     output:
-        "test2_rhdf5.h5"
+        "README.md"
     shell:
-        "Rscript test2_rhdf5.R"
+        "cp {input} {output}"
 
-rule run_python_notebook:
+rule use_h5py:
+    output:
+        "Output/h5py_test.h5"
+    shell:
+        "Scripts/use_h5py.py {output}"
+
+rule use_rhdf5:
+    output:
+        "Output/rhdf5_test1.h5", "Output/rhdf5_test2.h5"
+    shell:
+        "Scripts/use_rhdf5.R {output}"
+
+rule compile_highfive:
     input:
-        "test2_rhdf5.h5"
+        "src/highfive_test.cpp"
     output:
-        "test_h5py.h5"
+        "build/highfive_test"
     shell:
-        "jupyter-nbconvert --to notebook --inplace --execute main.py.ipynb"
+        "cd build && cmake ../ && make highfive_test"
 
-rule run_r_notebook:
+rule run_highfive:
     input:
-        "test2_rhdf5.h5"
+        "build/highfive_test",
+        "Output/rhdf5_test1.h5"
     output:
-        "test_rhdf5.h5"
+        "Output/highfive_test.h5"
     shell:
-        "jupyter-nbconvert --to notebook --inplace --execute main.r.ipynb"
+        "./build/highfive_test {input[1]} {output}"
 
 rule export_notebook:
     input:
-        "test2_rhdf5.h5"
+        "Output/h5py_test.h5",
+        "Output/rhdf5_test1.h5",
+        "Output/rhdf5_test2.h5",
+        "Output/highfive_test.h5"
     output:
-        "main.{lang}.{fmt}"
+        "main.py.{fmt}"
     params:
         fmt = lambda wildcards : "markdown" if wildcards.fmt == "md" else wildcards.fmt
     shell:
-        "jupyter-nbconvert --to {params.fmt} --execute main.{wildcards.lang}.ipynb"
+        "jupyter-nbconvert --to {params.fmt} --execute main.py.ipynb"
 

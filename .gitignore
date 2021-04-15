@@ -1,8 +1,12 @@
 
+# Python related
 .ipynb_checkpoints/
 .snakemake/
-*.h5
-*.hdf5
-*.html
+
+# Temp files
 gurobi.log
+main.py.md
+main.py.pdf
+main.py.html
+Output/
 build/
