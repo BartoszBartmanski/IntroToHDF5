@@ -1,4 +1,4 @@
-# TestHdf5
+# HDF5
 
 This repository is about testing how to work with HDF5 format, within Python, R and C++ programming languages.
 
