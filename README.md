@@ -56,6 +56,23 @@ We can open data saved by `rhdf5` package within Python like so:
 
 
 ```python
+fname = "Output/rhdf5_test1.h5"
+with h5py.File(fname) as fh:
+    print(fh.keys())
+    print(*[(x, fh[x][()]) for x in fh], sep="\n")
+```
+
+    <KeysViewHDF5 ['A', 'B', 'C', 'D']>
+    ('A', array([1., 2., 5.]))
+    ('B', array([[1., 2.],
+           [2., 3.]]))
+    ('C', array([b'hello', b'world'], dtype='|S5'))
+    ('D', array([[0, 1, 1],
+           [1, 0, 0]], dtype=int8))
+
+
+
+```python
 fname = "Output/rhdf5_test2.h5"
 with h5py.File(fname) as fh:
     print(fh.keys())
@@ -83,6 +100,7 @@ fname <- "Output/rhdf5_test2.h5"
 fh = H5Fopen(fname)
 print(fh)
 print(fh$"df")
+h5closeAll()
 ```
 
     HDF5 FILE 
@@ -101,7 +119,39 @@ print(fh$"df")
     5      5                      1.00                                s
 
 
+**Important**: `rhdf5` package saves matrices transposed, which is explained in `rhdf5` docs [here](https://bioconductor.org/packages/release/bioc/vignettes/rhdf5/inst/doc/rhdf5.html#reading-hdf5-files-with-external-software). If we open matrix D in `rhdf5_test1.h5` in Python:
+
+
+```python
+with h5py.File("Output/rhdf5_test1.h5") as fh:
+    print(fh["D"][:])
+```
+
+    [[0 1 1]
+     [1 0 0]]
+
+
+And in R:
+
+
+```r
+%%R
+fh = H5Fopen("Output/rhdf5_test1.h5")
+print(fh$"D")
+h5closeAll()
+```
+
+          [,1]  [,2]
+    [1,] FALSE  TRUE
+    [2,]  TRUE FALSE
+    [3,]  TRUE FALSE
+
+
+The matrix D, when read in Python is transposed and boolean entries have been changed to integers. We can observe the same behaviour when opening a file created by `rhdf5` package within C++. This happens because `rhdf5` "This is due to the fact the fastest changing dimension on C is the last one, but on R it is the first one (as in Fortran)." based on `rhdf5` documentation.
+
 # HighFive package (C++)
+
+We can open `hdf5` files generated in C++, using `HighFive` package, like so:
 
 
 ```python
