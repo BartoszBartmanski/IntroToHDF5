@@ -16,7 +16,7 @@ example1 <- function(filename) {
     h5write(b, filename, "B")
     
     # A vector of strings
-    c <- c("hello", "world")
+    c <- c("hello", "world", "foofoofoo", "barbarbarbar")
     h5write(c, filename, "C")
 
     d <- rbind(c(FALSE, TRUE),
