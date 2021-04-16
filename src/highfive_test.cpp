@@ -38,6 +38,13 @@ int main(int argc, char** argv) {
     auto b1 = H5Easy::load<std::vector<std::vector<double>>>(file1, "B");
     std::cout << std::endl << "B = " << b1;
 
+    HighFive::FixedLenStringArray<10> c1;
+    file1.getDataSet("C").read(c1);
+    std::cout << "C = ";
+    for (unsigned i=0; i<c1.size(); i++) {
+        std::cout << c1.getString(i) << " ";
+    }
+
     auto d1 = H5Easy::load<std::vector<std::vector<int>>>(file1, "D");
     std::cout << std::endl << "D = " << d1;
 
