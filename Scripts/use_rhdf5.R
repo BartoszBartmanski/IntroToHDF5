@@ -18,6 +18,11 @@ example1 <- function(filename) {
     # A vector of strings
     c <- c("hello", "world")
     h5write(c, filename, "C")
+
+    d <- rbind(c(FALSE, TRUE),
+               c(TRUE, FALSE),
+               c(TRUE, FALSE))
+    h5write(d, filename, "D")
     
     h5closeAll()
 }

@@ -38,6 +38,9 @@ int main(int argc, char** argv) {
     auto b1 = H5Easy::load<std::vector<std::vector<double>>>(file1, "B");
     std::cout << std::endl << "B = " << b1;
 
+    auto d1 = H5Easy::load<std::vector<std::vector<int>>>(file1, "D");
+    std::cout << std::endl << "D = " << d1;
+
     // Writing data using HighFive package
     H5Easy::File file2(argv[2], H5Easy::File::Overwrite);
 
