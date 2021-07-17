@@ -30,7 +30,10 @@ std::ostream& operator<<(std::ostream& os, const std::vector<std::vector<T>>& m)
 
 int main(int argc, char** argv) {
 
-	// Reading data
+	// Reading data generated in python
+    std::cout << "--- Reading data generated in python ---" 
+        << std::endl << std::endl;
+
     H5Easy::File file1(argv[1], H5Easy::File::ReadOnly);
 
     auto val_int = H5Easy::load<int>(file1, "int");
@@ -54,20 +57,43 @@ int main(int argc, char** argv) {
     }
     std::cout << std::endl;
 
+    // Reading data generated in R
+    std::cout << std::endl << "--- Reading data generated in R ---" 
+        << std::endl << std::endl;
+    H5Easy::File file2(argv[2], H5Easy::File::ReadOnly);
+
+    auto val_int2 = H5Easy::load<int>(file2, "int");
+    std::cout << "int = " << val_int2 << std::endl;
+
+    auto val_string2 = H5Easy::load<HighFive::FixedLenStringArray<10>>(file2, "string");
+    std::cout << "string = " << val_string2.getString(0) << std::endl;
+
+    auto val_array2 = H5Easy::load<std::vector<double>>(file2, "array");
+    std::cout << "array = " << std::endl << val_array2 << std::endl;
+
+    auto val_strings2 = H5Easy::load<HighFive::FixedLenStringArray<10>>(file2, "strings");
+    std::cout << "strings = ";
+    for (auto& elem : val_strings2) { std::cout << std::string(elem.data()) << ", "; }
+    std::cout << std::endl;
+
+    auto val_matrix = H5Easy::load<std::vector<std::vector<int>>>(file2, "rectangular_matrix");
+    std::cout << "rectangular_matrix = " << std::endl;
+    for (auto& row : val_matrix) { std::cout << row << std::endl; }
+
     // Writing data using HighFive package
-    H5Easy::File file2(argv[2], H5Easy::File::Overwrite);
+    H5Easy::File file3(argv[3], H5Easy::File::Overwrite);
 
     int a = 10;
-    H5Easy::dump(file2, "int", a);
+    H5Easy::dump(file3, "int", a);
 
     std::vector<int> b = {1, 2, 5};
-    H5Easy::dump(file2, "array", b);
+    H5Easy::dump(file3, "array", b);
 
 	std::vector<std::string> c = {
         "Hello World !", 
         "This string list is mapped to a dataset of variable length string"
     };
-	HighFive::DataSet dataset = file2.createDataSet<std::string>(
+	HighFive::DataSet dataset = file3.createDataSet<std::string>(
             "strings", HighFive::DataSpace::From(c));
     dataset.write(c);
 

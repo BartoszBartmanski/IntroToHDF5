@@ -7,11 +7,17 @@ rule all:
     shell:
         "cp {input} {output}"
 
-rule highfive_input:
+rule test_data_python:
     output:
-        "Output/highfive_test.h5"
+        "Output/test_py.h5"
     shell:
-        "Scripts/initial_data.py {output}"
+        "Scripts/test_data.py {output}"
+
+rule test_data_r:
+    output:
+        "Output/test_r.h5"
+    shell:
+        "Scripts/test_data.R {output}"
 
 rule compile_highfive:
     input:
@@ -24,11 +30,12 @@ rule compile_highfive:
 rule run_highfive:
     input:
         "build/highfive_test",
-        "Output/highfive_test.h5"
+        "Output/test_py.h5",
+        "Output/test_r.h5"
     output:
-        "Output/highfive_test2.h5"
+        "Output/highfive_test.h5"
     shell:
-        "./build/highfive_test {input[1]} {output}"
+        "{input} {output}"
 
 rule export_notebook:
     input:
