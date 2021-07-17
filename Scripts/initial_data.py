@@ -13,14 +13,6 @@ def example(filename):
     	fh.create_dataset("int", data=1)
     	fh.create_dataset("string", data="test")
 
-    # Reading from a file
-    with h5py.File(filename, "r") as fh:
-        print(fh.keys())
-        print(fh["array"][:])
-        print(fh["int"][()])
-        print(fh["string"][()].decode("UTF-8"))
-        print([x.decode("UTF-8") for x in fh["strings"][:]])
-
 if __name__ == "__main__":
     example(sys.argv[1])
 

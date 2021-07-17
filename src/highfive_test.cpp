@@ -15,7 +15,7 @@ std::ostream& operator<<(std::ostream& os, const std::vector<T>& v) {
         if (i != v.size() - 1)
             os << ", ";
     }
-    os << "]\n";
+    os << "]";
     return os;
 }
 
@@ -30,42 +30,45 @@ std::ostream& operator<<(std::ostream& os, const std::vector<std::vector<T>>& m)
 
 int main(int argc, char** argv) {
 
-	// Reading in data generated using rhdf5 package
+	// Reading data
     H5Easy::File file1(argv[1], H5Easy::File::ReadOnly);
-	auto a1 = H5Easy::load<std::vector<double>>(file1, "A");
-    std::cout << std::endl << "A = " << a1;
 
-    auto b1 = H5Easy::load<std::vector<std::vector<double>>>(file1, "B");
-    std::cout << std::endl << "B = " << b1;
+    auto val_int = H5Easy::load<int>(file1, "int");
+    std::cout << "int = " << val_int << std::endl;
 
-    HighFive::FixedLenStringArray<10> c1;
-    file1.getDataSet("C").read(c1);
-    std::cout << "C = ";
-    for (unsigned i=0; i<c1.size(); i++) {
-        std::cout << c1.getString(i) << " ";
+    auto val_string = H5Easy::load<std::string>(file1, "string");
+    std::cout << "string = " << val_string << std::endl;
+
+    auto val_array = H5Easy::load<std::vector<int>>(file1, "array");
+    std::cout << "array = " << val_array << std::endl;
+
+    // Reading in a vector of strings is a bit more complicated
+    std::vector<std::string> val_strings;
+    auto data = file1.getDataSet("strings");
+    std::cout << H5Easy::getShape(file1, "strings")[0] << " elements of type " 
+        << data.getDataType().string() << std::endl;
+    data.read(val_strings);
+    std::cout << "strings = ";
+    for (auto& elem : val_strings) {
+        std::cout << elem << ", ";
     }
-
-    auto d1 = H5Easy::load<std::vector<std::vector<int>>>(file1, "D");
-    std::cout << std::endl << "D = " << d1;
+    std::cout << std::endl;
 
     // Writing data using HighFive package
     H5Easy::File file2(argv[2], H5Easy::File::Overwrite);
 
- 	// Writing using H5Easy classes/functions
-    int A = 10;
-    H5Easy::dump(file2, "/path/to/A", A);
+    int a = 10;
+    H5Easy::dump(file2, "int", a);
 
-	// Writing using HighFive classes/functions
-	std::vector<std::string> string_list = {
+    std::vector<int> b = {1, 2, 5};
+    H5Easy::dump(file2, "array", b);
+
+	std::vector<std::string> c = {
         "Hello World !", 
         "This string list is mapped to a dataset of variable length string"
     };
 	HighFive::DataSet dataset = file2.createDataSet<std::string>(
-            "/path/to/B", HighFive::DataSpace::From(string_list));
-    dataset.write(string_list);
-
-	// To load using H5Easy
-	auto a2 = H5Easy::load<int>(file2, "/path/to/A");
-	std::cout << a2 << std::endl;
+            "strings", HighFive::DataSpace::From(c));
+    dataset.write(c);
 
 }
