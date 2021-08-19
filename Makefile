@@ -33,4 +33,4 @@ conda_env_simple.yml:
 	ln -s ../../.pre-commit $@
 
 clean:
-	rm -rf build/ Output/ gurobi.log conda_env.yml main.py.md README.md 
+	rm -rf build/ Output/ gurobi.log main.py.md README.md 

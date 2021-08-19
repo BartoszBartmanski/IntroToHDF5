@@ -1,6 +1,7 @@
-# HDF5
+# IntroToHDF5
 
-This repository is about testing how to work with HDF5 format, within Python, R and C++ programming languages.
+Small introduction on how to work with the HDF5 format 
+within Python, R and C++ programming languages.
 
 Documentation on [h5py] and [rhdf5].
 
@@ -9,7 +10,9 @@ Documentation on [h5py] and [rhdf5].
 
 ## Requirements
 
-To use HighFive library (for reading and writing of HDF5 files in C++) need to install (through `apt` tool in Ubuntu):
+To use HighFive library (for reading and writing of 
+HDF5 files in C++) need to install (through `apt` 
+tool in Ubuntu):
 * libboost-serialization1.71-dev
 * libboost-system1.71-dev
 * libboost1.71-dev
@@ -17,6 +20,22 @@ To use HighFive library (for reading and writing of HDF5 files in C++) need to i
 * hdf5-helpers
 * hdf5-tools
 
+To reproduce anything in this repository, first 
+create the conda environment from `conda_env_simple.yml`:
+```
+conda env create -n test_hdf5 -f conda_env_simple.yml
+```
+If conda is not installed, follow the installation 
+instructions [here](https://docs.conda.io/projects/conda/en/latest/user-guide/install/#regular-installation).
+
+Then activate the conda enviornment:
+```
+conda activate test_hdf5
+```
+and execute the following command:
+```
+make all
+```
 
 # h5py package (Python)
 
