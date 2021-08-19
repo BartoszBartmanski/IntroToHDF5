@@ -1,7 +1,8 @@
 
+*.swp
+
 # Python related
 .ipynb_checkpoints/
-.snakemake/
 
 # Temp files
 gurobi.log

@@ -401,7 +401,7 @@ Below is the C++ code on how to read and write hdf5 format:
 ```python
 from IPython.display import Markdown as md
 
-with open("src/highfive_test.cpp") as fh:
+with open("src/test_highfive.cpp") as fh:
     cpp_file = fh.read()
 md(f"```C++\n{cpp_file}```")
 ```
@@ -518,7 +518,7 @@ We can open `hdf5` files generated in C++, using `HighFive` package, like so:
 
 
 ```python
-with h5py.File("Output/highfive_test.h5") as fh:
+with h5py.File("Output/test_highfive.h5") as fh:
     print(fh.keys())
     print(fh["int"][()])
     print(fh["array"][:])

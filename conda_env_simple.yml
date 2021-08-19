@@ -1,0 +1,16 @@
+name: test_hdf5
+channels:
+  - r
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - h5py
+  - python
+  - jupyter
+  - bioconductor-rhdf5
+  - cmake
+  - rpy2
+  - pandas
+  - pytables
+prefix: /home/bartosz/.miniconda3/envs/test_hdf5

@@ -10,5 +10,5 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(HIGHFIVE_USE_BOOST OFF)
 add_subdirectory(HighFive)
 
-add_executable(highfive_test src/highfive_test.cpp)
-target_link_libraries(highfive_test HighFive)
+add_executable(test_highfive src/test_highfive.cpp)
+target_link_libraries(test_highfive HighFive)

@@ -2,9 +2,12 @@
 
 # Copy/link this script to .git/hooks with (ln -s ../../.pre-commit .git/hooks/pre-commit)
 
-ENV_FILE="conda_env.yml"
 ENV_NAME="test_hdf5"
+ENV_FILE_1="conda_env.yml"
+ENV_FILE_2="conda_env_simple.yml"
 
-conda env export -n ${ENV_NAME} -f ${ENV_FILE}
-git add ${ENV_FILE}
+conda env export -n ${ENV_NAME} -f ${ENV_FILE_1}
+conda env export -n ${ENV_NAME} -f ${ENV_FILE_2} --from-history
+
+git add ${ENV_FILE_1} ${ENV_FILE_2}
 
